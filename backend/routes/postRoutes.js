@@ -32,7 +32,7 @@ router.post('/', upload.single('image'), async (req, res) => {
     const newPost = await Post.create({
       authorName: authorName || 'Anonymous',
       text: text || '',
-      imageUrl
+      imageUrl: imageUrl
     });
 
     res.status(201).json(newPost);

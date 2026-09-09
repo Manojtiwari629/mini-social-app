@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
   authorName: { type: String, required: true },
   text: { type: String, trim: true },
   imageUrl: { type: String },
