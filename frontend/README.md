@@ -1,16 +1,35 @@
-# React + Vite
+# Mini Social Post Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A responsive full-stack MERN social feed built for the 3W Full Stack Internship Assignment.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
+- **Frontend (Vercel):** [https://mini-social-app-seven-olive.vercel.app](https://mini-social-app-seven-olive.vercel.app)
+- **Backend API (Render):** [https://mini-social-app-utqm.onrender.com](https://mini-social-app-utqm.onrender.com)
+- **GitHub Repository:** [https://github.com/Manojtiwari629/mini-social-app](https://github.com/Manojtiwari629/mini-social-app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🛠 Tech Stack
+- **Frontend:** React.js, Vanilla CSS (strictly adheres to no-Tailwind rule)
+- **Backend:** Node.js, Express.js, Multer (multipart/form-data)
+- **Database:** MongoDB Atlas (Mongoose ODM)
+- **Authentication:** JWT (JSON Web Tokens), bcryptjs
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## ✨ Features Implemented
+1. **User Authentication:**
+   - Secure registration and login flow using salted password hashing.
+   - JWT persistent sessions via LocalStorage.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+2. **Social Feed & Post Creation:**
+   - Create posts with text only, image only, or both.
+   - Public feed displaying posts chronologically with timestamps and author handles.
+
+3. **Interactions:**
+   - Real-time like and unlike toggle.
+   - Post commenting system storing usernames and timestamps.
+
+4. **Optimized Architecture:**
+   - Clean separation of concerns (`frontend/` and `backend/`).
+   - Two efficient collections (`users` and `posts` with embedded arrays) as per guidelines.
