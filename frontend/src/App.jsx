@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './styles.css';
 import AuthPage from './pages/AuthPage';
 import FeedPage from './pages/FeedPage';
 import Navbar from './components/Navbar';
@@ -8,24 +7,37 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('social_user');
-    if (savedUser) setUser(JSON.parse(savedUser));
+    const savedUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    if (savedUser && token) {
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (e) {
+        localStorage.clear();
+      }
+    }
   }, []);
 
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
+  };
+
   const handleLogout = () => {
-    localStorage.removeItem('social_user');
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setUser(null);
   };
 
-  if (!user) {
-    return <AuthPage onAuthSuccess={(userData) => setUser(userData)} />;
-  }
-
   return (
-    <div className="app-container">
-      <Navbar user={user} onLogout={handleLogout} />
-      <FeedPage user={user} />
+    <div style={{ minHeight: '100vh', background: '#f8fafc' }}>
+      {user ? (
+        <>
+          <Navbar user={user} onLogout={handleLogout} />
+          <FeedPage user={user} />
+        </>
+      ) : (
+        <AuthPage onLoginSuccess={handleLoginSuccess} />
+      )}
     </div>
   );
 }
