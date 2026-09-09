@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../api';
 
 export default function PostCard({ post, user, onPostDeleted }) {
   const [currentPost, setCurrentPost] = useState(post);
   const [commentText, setCommentText] = useState('');
   const [showComments, setShowComments] = useState(false);
 
-  const isLiked = currentPost.likes?.includes(user.username);
+  const isLiked = currentPost.likes?.includes(user?.username);
 
   const handleLike = async () => {
     try {
-      const res = await axios.put(`http://localhost:5001/api/posts/${currentPost._id}/like`, { username: user.username });
+      const res = await axios.put(`${API_BASE_URL}/api/posts/${currentPost._id}/like`, { username: user.username });
       setCurrentPost(res.data);
     } catch (err) {
       console.error(err);
@@ -20,7 +21,7 @@ export default function PostCard({ post, user, onPostDeleted }) {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`http://localhost:5001/api/posts/${currentPost._id}`);
+        await axios.delete(`${API_BASE_URL}/api/posts/${currentPost._id}`);
         if (onPostDeleted) onPostDeleted(currentPost._id);
       } catch (err) {
         console.error(err);
@@ -33,7 +34,7 @@ export default function PostCard({ post, user, onPostDeleted }) {
     if (!commentText.trim()) return;
 
     try {
-      const res = await axios.post(`http://localhost:5001/api/posts/${currentPost._id}/comment`, {
+      const res = await axios.post(`${API_BASE_URL}/api/posts/${currentPost._id}/comment`, {
         username: user.username,
         text: commentText
       });
@@ -70,7 +71,7 @@ export default function PostCard({ post, user, onPostDeleted }) {
           </span>
         </div>
 
-        {user.username === currentPost.authorName && (
+        {user?.username === currentPost.authorName && (
           <button 
             onClick={handleDelete} 
             style={{
@@ -99,7 +100,7 @@ export default function PostCard({ post, user, onPostDeleted }) {
       {currentPost.imageUrl && (
         <div style={{ borderRadius: '14px', overflow: 'hidden', border: '1px solid #f1f5f9', marginBottom: '14px', background: '#f8fafc' }}>
           <img 
-            src={`http://localhost:5001${currentPost.imageUrl}`} 
+            src={`${API_BASE_URL}${currentPost.imageUrl}`} 
             alt="post-media" 
             style={{ width: '100%', maxHeight: '380px', objectFit: 'contain', display: 'block' }} 
           />
